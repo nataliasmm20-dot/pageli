@@ -12,8 +12,12 @@ export default {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      sans: ['Montserrat', 'sans-serif'],
+    },
     extend: {
       colors: {
+        "cta-bg": "hsl(var(--cta-bg))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
