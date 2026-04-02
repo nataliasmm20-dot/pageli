@@ -6,7 +6,7 @@ const reasons = [
 ];
 
 const WhyUsSection = () => (
-  <section className="py-16 px-6" id="team">
+  <section className="pt-4 pb-16 px-6" id="team">
     <div className="container mx-auto max-w-4xl">
       <h2 className="text-2xl md:text-3xl font-extrabold uppercase text-center text-foreground">
         Почему мы

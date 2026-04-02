@@ -5,10 +5,7 @@ import StepsSection from "@/components/StepsSection";
 import NumbersSection from "@/components/NumbersSection";
 import WhyUsSection from "@/components/WhyUsSection";
 import CtaBanner from "@/components/CtaBanner";
-import ServicesSection from "@/components/ServicesSection";
-import CasesSection from "@/components/CasesSection";
 import FaqSection from "@/components/FaqSection";
-import ContactsSection from "@/components/ContactsSection";
 import Footer from "@/components/Footer";
 
 const Index = () => (
@@ -20,10 +17,7 @@ const Index = () => (
     <NumbersSection />
     <WhyUsSection />
     <CtaBanner />
-    <ServicesSection />
-    <CasesSection />
     <FaqSection />
-    <ContactsSection />
     <Footer />
   </div>
 );
