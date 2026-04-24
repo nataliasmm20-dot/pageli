@@ -67,11 +67,22 @@ const ContactsSection = () => {
 
         {/* Form */}
         <div className="mt-10 bg-cta-bg rounded-2xl p-8 md:p-12">
-          <h3 className="text-xl font-bold text-foreground">Нужна консультация?</h3>
+          <h3 className="text-xl font-bold text-foreground">Остались вопросы?</h3>
           <p className="text-muted-foreground text-sm mt-2">
-            Готовы предоставить полную консультацию по условиям сотрудничества и всем интересующим вопросам работы с нашей компанией!
+            Напишите нам и мы свяжемся с вами в ближайшее время, чтобы ответить по всем интересующим моментам.
           </p>
           <div className="mt-6 space-y-4 max-w-lg">
+            {/* <div>
+              <input
+                type="text"
+                placeholder="Вопрос/предложение/уточнение"
+                value={question}
+                onChange={(e) => handleNameChange(e.target.value)}
+                maxLength={60}
+                className={`w-full px-4 py-3 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring ${errors.question ? "border-destructive" : "border-border"}`}
+              />
+              {errors.question && <p className="text-xs text-destructive mt-1">{errors.question}</p>}
+            </div> */}
             <div>
               <input
                 type="text"
@@ -95,8 +106,8 @@ const ContactsSection = () => {
               {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
             </div>
             <label className="flex items-start gap-2 text-xs text-muted-foreground">
-              <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5" />
-              Согласие на обработку персональных данных в соответствии с целями, указанными в Политике обработки персональных данных
+              <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 shrink-0" />
+              <span>Согласен(а) на обработку персональных данных в соответствии с <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer" className="underline text-primary hover:opacity-80">Политикой конфиденциальности</a></span>
             </label>
             <button
               onClick={handleSubmit}
@@ -118,7 +129,7 @@ const ContactsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <div className="bg-accent rounded-xl p-6">
             <h4 className="text-primary font-bold uppercase text-sm">Позвонить</h4>
-            <p className="text-foreground mt-2">+ 375 (29) 597 85 62 (Наташа)</p>
+            <p className="text-foreground mt-2">+ 375 (29) 597 85 62 (МТС)</p>
           </div>
           <div className="bg-accent rounded-xl p-6">
             <h4 className="text-primary font-bold uppercase text-sm">Написать</h4>

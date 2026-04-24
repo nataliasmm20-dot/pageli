@@ -1,18 +1,18 @@
 const items = [
-  { title: "Фаундеры", desc: "Хотите привлекать клиентов, партнёров и инвесторов через личный бренд" },
-  { title: "Эксперты", desc: "Хотите, чтобы клиенты приходили сами — через контент и нетворкинг" },
-  { title: "B2B-компании", desc: "Хотите системную лидогенерацию и узнаваемость в нише" },
-  { title: "HR-команды", desc: "Хотите нанимать лучших специалистов через LinkedIn" },
+  { title: "Фаундер", desc: "Хотите привлекать клиентов, партнёров и инвесторов через личный бренд" },
+  { title: "Эксперт", desc: "Хотите, чтобы клиенты приходили сами, а у вашей экспертности была визитная карточка" },
+  { title: "B2B-компания", desc: "Хотите системную лидогенерацию и узнаваемость в нише" },
+  { title: "HR-специалист", desc: "Хотите нанимать лучших специалистов через LinkedIn" },
 ];
 
 const ForWhomSection = () => (
   <section className="py-16 px-6">
     <div className="container mx-auto max-w-4xl">
       <h2 className="text-2xl md:text-3xl font-extrabold uppercase text-center text-foreground">
-        Для кого мы работаем
+        Наши услуги вам подходят, если вы
       </h2>
       <p className="text-center text-muted-foreground mt-3">
-        Узнайте себя — и мы покажем, как LinkedIn решит вашу задачу
+      
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
         {items.map((item) => (

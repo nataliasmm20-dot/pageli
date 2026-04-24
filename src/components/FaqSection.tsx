@@ -13,7 +13,7 @@ const FaqSection = () => {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="pt-6 pb-16 px-6">
+    <section className="py-12 md:py-16 px-6">
       <div className="container mx-auto max-w-3xl">
         <h2 className="text-2xl md:text-3xl font-extrabold uppercase text-center text-foreground">
           Частые вопросы

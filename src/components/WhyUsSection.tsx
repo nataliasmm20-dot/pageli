@@ -1,15 +1,15 @@
 const reasons = [
-  { title: "Только LinkedIn", desc: "Мы не распыляемся — работаем с одной платформой и знаем её глубоко" },
-  { title: "Фокус на диалогах", desc: "Мы не гонимся за лайками — важны реальные разговоры и сделки" },
-  { title: "Ваш голос", desc: "Контент пишется в вашем стиле — аудитория не почувствует разницы" },
-  { title: "Опыт в B2B", desc: "Работаем с фаундерами, экспертами и компаниями, понимаем специфику" },
+  { title: "Только LinkedIn", desc: "Мы не распыляемся — работаем с одной платформой и знаем все нюансы и функции" },
+  { title: "Фокус на вашей цели", desc: "Мы на старте уточняем чего вы хотите добиться, прописываем шаги достижения и идем к цели" },
+  { title: "Ваш голос", desc: "Мы на старте обсуждаем и прописываем ваш голос, чтоыб контент всегда был в вашем стиле" },
+  { title: "Опыт разных ниш и тем профилей", desc: "Работаем с разными направлениями: SaaS, FinTech, MedTech, AI, маркетинг, дизайн, космос и многие другие" },
 ];
 
 const WhyUsSection = () => (
-  <section className="pt-4 pb-16 px-6" id="team">
+  <section className="py-12 md:py-16 px-6" id="team">
     <div className="container mx-auto max-w-4xl">
       <h2 className="text-2xl md:text-3xl font-extrabold uppercase text-center text-foreground">
-        Почему мы
+        Почему выбирают нас
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
         {reasons.map((r) => (
