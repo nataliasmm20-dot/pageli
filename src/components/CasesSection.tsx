@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 // Mobile avatars
 import case1Mobile from "@/assets/cases/mobile/case-1.jpg";
@@ -8,11 +8,11 @@ import case4Mobile from "@/assets/cases/mobile/case-4.jpg";
 import case5Mobile from "@/assets/cases/mobile/case-5.jpg";
 
 // Desktop banners (только для кейсов где есть широкая картинка)
-import case1Desktop from "@/assets/cases/desctop/case-1-desctop.jpg";
-import case2Desktop from "@/assets/cases/desctop/case-2-desctop.jpg";
-import case3Desktop from "@/assets/cases/desctop/case-3-desctop.jpg";
-import case4Desktop from "@/assets/cases/desctop/case-4-desctop.jpg";
-import case5Desktop from "@/assets/cases/desctop/case-5-desctop.jpg";
+import case1Desktop from "@/assets/cases/desctop/case-1-desctop.webp";
+import case2Desktop from "@/assets/cases/desctop/case-2-desctop.webp";
+import case3Desktop from "@/assets/cases/desctop/case-3-desctop.webp";
+import case4Desktop from "@/assets/cases/desctop/case-4-desctop.webp";
+import case5Desktop from "@/assets/cases/desctop/case-5-desctop.webp";
 import screenshot1 from "@/assets/screenshot-1.png";
 import screenshot2 from "@/assets/screenshot-2.png";
 import screenshot3 from "@/assets/screenshot-3.jpg";
@@ -130,6 +130,12 @@ const screenshots = [screenshot1, screenshot2, screenshot3, screenshot4];
 const CasesSection = () => {
   const [current, setCurrent] = useState(0);
   const [activeScreenshot, setActiveScreenshot] = useState(0);
+
+  // Предзагрузка всех изображений кейсов
+  useEffect(() => {
+    const urls = cases.flatMap((c) => [c.mobileImg, c.desktopImg].filter(Boolean) as string[]);
+    urls.forEach((src) => { const img = new Image(); img.src = src; });
+  }, []);
   const scrollRef = useRef<HTMLDivElement>(null);
   const desktopScrollRef = useRef<HTMLDivElement>(null);
 
