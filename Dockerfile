@@ -1,6 +1,9 @@
 # Stage 1: build
 FROM node:20-alpine AS builder
 
+ARG VITE_LANG=ru
+ENV VITE_LANG=$VITE_LANG
+
 WORKDIR /app
 
 COPY package*.json ./

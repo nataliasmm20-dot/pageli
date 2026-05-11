@@ -2,17 +2,12 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.jpg";
-
-const navLinks = [
-  { to: "/", label: "Главная" },
-  { to: "/services", label: "Услуги" },
-  { to: "/cases", label: "Кейсы" },
-  { to: "/contacts", label: "Контакты" },
-];
+import { useLang } from "@/hooks/useLang";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const t = useLang().header;
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
@@ -23,7 +18,7 @@ const Header = () => {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-foreground">
-          {navLinks.map((l) => (
+          {t.nav.map((l) => (
             <Link
               key={l.to}
               to={l.to}
@@ -39,14 +34,14 @@ const Header = () => {
           to="/contacts"
           className="hidden md:inline-block bg-primary text-primary-foreground px-6 py-2.5 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
         >
-          Оставить заявку
+          {t.cta}
         </Link>
 
         {/* Mobile burger */}
         <button
           className="md:hidden p-2 text-foreground"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Меню"
+          aria-label={t.menuAriaLabel}
         >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -55,7 +50,7 @@ const Header = () => {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden border-t border-border bg-background px-6 py-4 flex flex-col gap-4">
-          {navLinks.map((l) => (
+          {t.nav.map((l) => (
             <Link
               key={l.to}
               to={l.to}
@@ -70,7 +65,7 @@ const Header = () => {
             onClick={() => setOpen(false)}
             className="mt-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-full text-sm font-semibold text-center hover:opacity-90 transition-opacity"
           >
-            Оставить заявку
+            {t.cta}
           </Link>
         </div>
       )}

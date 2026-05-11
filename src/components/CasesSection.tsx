@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useLang } from "@/hooks/useLang";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 // Mobile avatars
 import case1Mobile from "@/assets/cases/mobile/case-1.jpg";
@@ -18,122 +19,25 @@ import screenshot2 from "@/assets/screenshot-2.png";
 import screenshot3 from "@/assets/screenshot-3.jpg";
 import screenshot4 from "@/assets/screenshot-4.jpg";
 
-const cases = [
-  {
-    id: 1,
-    mobileImg: case1Mobile,
-    desktopImg: case1Desktop as string,
-    name: "",
-    role: "IT-руководитель с более чем 30-летним опытом.",
-    period: "Старт: январь 2024 — по настоящее время.",
-    goal: "Развить свою сеть контактов для расширения клиентской базы нескольких компаний: XIM, Inc (его основная компания, индустрия: saas разработка), ZIMAD (кофаундер, индустрия: мобильные игры), ERP.AERO (инвестор, индустрия: ERP для аэро индустрии).",
-    audience: [
-      "B2B-клиенты и партнёры в SaaS, mobile gaming и aerospace",
-      "C-level лица, принимающие решения",
-      "Инвесторы и предприниматели, работающие в схожих нишах",
-      "Стартапы и компании, нуждающиеся в техническом партнёрстве",
-    ],
-    results: [
-      { value: "1K → 5K", label: "рост подписчиков" },
-      { value: "4 000", label: "средний охват публикаций" },
-      { value: "персонализированные визуальные материалы", label: "при полном отсутствии фотоконтента" },
-      { value: "20-30", label: "целевых сообщений в неделю" },
-    ],
-  },
-  {
-    id: 2,
-    mobileImg: case2Mobile,
-    desktopImg: case2Desktop as string,
-    name: "",
-    role: "CEO at Delivio Software | Scaling SaaS Platforms",
-    period: "Время проекта: март 2025 — март 2026.",
-    goal: "Развить личный бренд и привлечь B2B-клиентов через LinkedIn для SaaS-платформ в сфере FoodTech и TravelTech.",
-    audience: [
-      "SaaS-фаундеры и CTO",
-      "B2B-клиенты в FoodTech и TravelTech",
-      "Инвесторы и акселераторы",
-      "Партнёры для интеграций",
-    ],
-    results: [
-      { value: "0,5K → 1,9K", label: "рост подписчиков" },
-      { value: "16 000", label: "топовый охват публикаций" },
-      { value: "нетворкинг", label: "упрощенная коммуникация с инностранными партнерами" },
-      { value: "5-15", label: "целевых сообщений в неделю" },
-    ],
-  },
-  {
-    id: 3,
-    mobileImg: case3Mobile,
-    desktopImg: case3Desktop as string,
-    name: "",
-    role: "Основатель компании по разработке ИИ решений для бизнеса.",
-    period: "Старт: ноябрь 2025 — по настоящее время.",
-    goal: "Привлечь запросы на выступления, консультации и стратегические сессии по теме AI в космосе и автономных систем, а также медиа-запросы и коллаборации от tech/space-изданий.",
-    audience: [
-      "C-level и VP в AI-, robotics- и space-компаниях",
-      "Фаундеры deep tech и frontier-стартапов",
-      "Продуктовые и R&D-лидеры, которые смотрят дальше классических AI-кейсов",
-      "Тех-журналисты и медиа, в поисках цитат и понятных объяснений",
-    ],
-    results: [
-      { value: "1,3K → 3,3K", label: "рост подписчиков" },
-      { value: "12 000", label: "средний охват публикаций" },
-      { value: "1,5K-2,5K", label: "просмотров страницы в неделю" },
-      { value: "эксперт", label: "восприятие на конференциях" },
-    ],
-  },
-  {
-    id: 4,
-    mobileImg: case4Mobile,
-    desktopImg: case4Desktop as string,
-    name: "",
-    role: "Продуктовый дата- и ML-аналитик в сфере маркетплейсов.",
-    period: "Старт: декабрь 2025 — по настоящее время.",
-    goal: "Предложения от зарубежных продуктовых и технологических компаний (особенно маркетплейсов/платформ) и рекрутеров через позиционирование как эксперта по монетизации, экспериментам и ML в продуктовой аналитике.",
-    audience: [
-      "CPO, Head of Product, VP Growth, Head of Analytics/Data, Monetization Leads",
-      "Senior/Lead Product Managers & Product Owners",
-      "Senior/Lead Data/Product Analysts, Product Data Scientists",
-      "Tech-рекрутеры и HR зарубежных продуктовых компаний",
-    ],
-    results: [
-      { value: "327 → 1,6к", label: "рост подписчиков" },
-      { value: "2-4", label: "приглашения на топ-позиции/месяц" },
-      { value: "еженедельные", label: "технические публикации" },
-      { value: "нетворкинг", label: "переходы общения в сообщения" },
-    ],
-  },
-  {
-    id: 5,
-    mobileImg: case5Mobile,
-    desktopImg: case5Desktop as string,
-    name: "",
-    role: "Предприниматель и основатель проектов в сфере инфлюенс маркетинга.",
-    period: "Время проекта: октябрь 2025 — декабрь 2025.",
-    goal: "Развить сеть контактов и личный бренд перед запуском своего приложения для бизнеса и инфлюенсеров.",
-    audience: [
-      "Performance & User Acquisition Agencies (Partners, Top Priority)",
-      "Mobile App Products (500k+ installs)",
-      "Well-Known B2C Brands (DTC/eCom, $5M+ revenue)",
-    ],
-    results: [
-      { value: "1к → 2,5к", label: "рост подписчиков" },
-      { value: "12 000", label: "топовый охват публикации" },
-      { value: "200+", label: "холодных сообщений" },
-      { value: "16%", label: "конверсия ответов" },
-    ],
-  },
+const caseImages = [
+  { mobileImg: case1Mobile, desktopImg: case1Desktop as string },
+  { mobileImg: case2Mobile, desktopImg: case2Desktop as string },
+  { mobileImg: case3Mobile, desktopImg: case3Desktop as string },
+  { mobileImg: case4Mobile, desktopImg: case4Desktop as string },
+  { mobileImg: case5Mobile, desktopImg: case5Desktop as string },
 ];
 
 const screenshots = [screenshot1, screenshot2, screenshot3, screenshot4];
 
 const CasesSection = () => {
+  const t = useLang().cases;
+  const cases = t.items.map((item, i) => ({ ...item, ...caseImages[i] }));
   const [current, setCurrent] = useState(0);
   const [activeScreenshot, setActiveScreenshot] = useState(0);
 
   // Предзагрузка всех изображений кейсов
   useEffect(() => {
-    const urls = cases.flatMap((c) => [c.mobileImg, c.desktopImg].filter(Boolean) as string[]);
+    const urls = caseImages.flatMap((c) => [c.mobileImg, c.desktopImg].filter(Boolean) as string[]);
     urls.forEach((src) => { const img = new Image(); img.src = src; });
   }, []);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -167,7 +71,7 @@ const CasesSection = () => {
   return (
     <section className="py-16 px-6" id="cases">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-black uppercase text-primary italic">КЕЙСЫ</h2>
+        <h2 className="text-3xl md:text-4xl font-black uppercase text-primary italic">{t.title}</h2>
 
         {/* Carousel */}
         <div className="mt-10 border border-border rounded-2xl overflow-hidden bg-background">
@@ -218,7 +122,7 @@ const CasesSection = () => {
             {/* Desktop name block */}
             <div className="hidden md:flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                {cs.id}
+                {current + 1}
               </div>
               <div>
                 <p className="text-muted-foreground text-sm">{cs.role}</p>
@@ -228,12 +132,12 @@ const CasesSection = () => {
             <p className="text-primary text-sm font-semibold">{cs.period}</p>
 
             <div className="mt-3">
-              <h4 className="text-primary text-xs font-bold uppercase tracking-wider">Цель</h4>
+              <h4 className="text-primary text-xs font-bold uppercase tracking-wider">{t.taskLabel}</h4>
               <p className="text-foreground text-sm mt-1">{cs.goal}</p>
             </div>
 
             <div className="mt-3">
-              <h4 className="text-primary text-xs font-bold uppercase tracking-wider">Целевая аудитория</h4>
+              <h4 className="text-primary text-xs font-bold uppercase tracking-wider">{t.audienceLabel}</h4>
               <div className="flex flex-wrap gap-2 mt-2">
                 {cs.audience.map((a, i) => (
                   <span key={i} className="bg-accent text-foreground text-xs px-3 py-1.5 rounded-full">{a}</span>
@@ -242,7 +146,7 @@ const CasesSection = () => {
             </div>
 
             <div className="mt-4">
-              <h4 className="text-primary text-xs font-bold uppercase tracking-wider">Результаты</h4>
+              <h4 className="text-primary text-xs font-bold uppercase tracking-wider">{t.resultsLabel}</h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
                 {cs.results.map((r, i) => (
                   <div key={i} className="bg-accent rounded-xl p-3 text-center">
@@ -268,7 +172,7 @@ const CasesSection = () => {
 
         {/* Screenshots */}
         <div className="mt-12">
-          <h3 className="text-xl font-bold text-foreground text-center mb-6">Пару примеров результатов от наших клиентов</h3>
+          <h3 className="text-xl font-bold text-foreground text-center mb-6">{t.screenshotsTitle}</h3>
 
           {/* Desktop: horizontal scroll carousel with arrows */}
           <div className="hidden md:block relative">

@@ -1,46 +1,22 @@
-const topSteps = [
-  { title: "Оптимизация профиля", desc: "Превращаем профиль в продающую страницу" },
-  { title: "Вовлечение аудитории", desc: "Рост подписчиков и взаимодействия" },
-];
+import { useLang } from "@/hooks/useLang";
 
-const bottomSteps = [
-  { title: "Стратегия и позиционирование", desc: "Определяем вашу уникальность и план продвижения" },
-  { title: "Контент от вашего имени", desc: "Пишем посты в вашем голосе и стиле" },
-  { title: "Лидогенерация через диалоги", desc: "Конвертируем контакты в разговоры и сделки" },
-];
-
-// Все шаги по порядку для мобильного степпера
-const allSteps = [
-  { title: "Стратегия и позиционирование", desc: "Через заполнения брифа или онлайн-интервью, определяем ваш голос, стиль и план продвижения." },
-  { title: "Оптимизация профиля", desc: "Превращаем профиль в понятную страницу, которая решает вашу задачу" },
-  { title: "Контент от вашего имени", desc: "Подбираем темы под вас и пишем посты в вашем голосе" },
-  { title: "Вовлечение аудитории", desc: "Ежедневно растим подписчиков и взаимодействуем с целевой аудиторией" },
-  { title: "Лидогенерация через диалоги", desc: "Конвертируем контакты в разговоры и сделки" },
-];
-
-const results = [
-  "Входящие сообщения от потенциальных клиентов и партнёров",
-  "Медийность и личный бренд, которые вызывают доверие",
-  "Рост узнаваемости и упрощения нетворкинга в вашей нише",
-  "Диалоги с ЛПР и руководителями релевантных компаний",
-];
-
-const StepsSection = () => (
+const StepsSection = () => {
+  const t = useLang().steps;
+  return (
   <section className="py-16 px-6 bg-muted/50">
     <div className="container mx-auto max-w-5xl">
       <h2 className="text-2xl md:text-3xl font-black uppercase text-center text-foreground">
-        Этапы работы
+        {t.title}
       </h2>
-      <p className="text-center text-muted-foreground mt-3">
-        Мы вкладываем свою экспертизу, насмотренность и время, чтобы через ваш Linkedin профиль, вы получали желаемый результат. 
-        <br></br>И вот, что именно мы делаем на старте работы:
+      <p className="text-center text-muted-foreground mt-3 whitespace-pre-line">
+        {t.subtitle}
       </p>
 
       {/* Desktop: wave diagram */}
       <div className="hidden lg:flex flex-row gap-10 mt-12">
         <div className="lg:w-2/3">
           <div className="flex justify-around mb-2 px-4">
-            {topSteps.map((s, i) => (
+            {t.topSteps.map((s, i) => (
               <div key={i} className="text-center max-w-[160px]">
                 <p className="font-bold text-foreground text-sm">{s.title}</p>
                 <p className="text-muted-foreground text-xs mt-1">{s.desc}</p>
@@ -66,7 +42,7 @@ const StepsSection = () => (
           </div>
 
           <div className="flex justify-between mt-2">
-            {bottomSteps.map((s, i) => (
+            {t.bottomSteps.map((s, i) => (
               <div key={i} className="max-w-[160px]">
                 <p className="font-bold text-foreground text-sm">{s.title}</p>
                 <p className="text-muted-foreground text-xs mt-1">{s.desc}</p>
@@ -76,13 +52,13 @@ const StepsSection = () => (
         </div>
 
         <div className="lg:w-1/3 space-y-4">
-          {results.map((r, i) => (
+          {t.results.map((r, i) => (
             <div key={i}>
               <div className="flex items-start gap-3">
                 <div className="mt-0.5 w-5 h-5 rounded-full border-2 border-primary flex-shrink-0" />
                 <p className="text-foreground text-sm">{r}</p>
               </div>
-              {i < results.length - 1 && <div className="mt-4 border-b border-border" />}
+              {i < t.results.length - 1 && <div className="mt-4 border-b border-border" />}
             </div>
           ))}
         </div>
@@ -92,14 +68,14 @@ const StepsSection = () => (
       <div className="lg:hidden mt-10">
         {/* Steps */}
         <div className="relative">
-          {allSteps.map((s, i) => (
+          {t.allSteps.map((s, i) => (
             <div key={i} className="flex gap-4 relative">
               {/* Line + dot */}
               <div className="flex flex-col items-center">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0 z-10">
                   {i + 1}
                 </div>
-                {i < allSteps.length - 1 && (
+                {i < t.allSteps.length - 1 && (
                   <div className="w-0.5 bg-primary/30 flex-1 my-1" style={{ minHeight: "32px" }} />
                 )}
               </div>
@@ -122,15 +98,15 @@ const StepsSection = () => (
 
         {/* Results block */}
         <div className="bg-background rounded-2xl border border-border p-5">
-          <p className="text-xs font-bold uppercase text-primary tracking-wider mb-4">В итоге вы получаете</p>
+          <p className="text-xs font-bold uppercase text-primary tracking-wider mb-4">{t.resultsLabel}</p>
           <div className="space-y-4">
-            {results.map((r, i) => (
+            {t.results.map((r, i) => (
               <div key={i}>
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 w-5 h-5 rounded-full border-2 border-primary flex-shrink-0" />
                   <p className="text-foreground text-sm">{r}</p>
                 </div>
-                {i < results.length - 1 && <div className="mt-4 border-b border-border" />}
+                {i < t.results.length - 1 && <div className="mt-4 border-b border-border" />}
               </div>
             ))}
           </div>
@@ -139,6 +115,7 @@ const StepsSection = () => (
 
     </div>
   </section>
-);
+  );
+};
 
 export default StepsSection;

@@ -1,0 +1,18 @@
+services:
+  pageli-ru:
+    build:
+      context: .
+      args:
+        VITE_LANG: ru
+    ports:
+      - "8289:80"
+    restart: unless-stopped
+
+  pageli-en:
+    build:
+      context: .
+      args:
+        VITE_LANG: en
+    ports:
+      - "8290:80"
+    restart: unless-stopped

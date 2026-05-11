@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Instagram, Send } from "lucide-react";
+import { useLang } from "@/hooks/useLang";
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxovxmQLjs4GZavs0VYuqoo9nFSscnLaurtIfMhCd_ahRmYERzaRnRANBTHAAe0PnIv/exec";
 
@@ -11,6 +12,7 @@ const PHONE_RE = /^[+\d\s\-()]{5,20}$/;
 const sanitize = (value: string) => value.replace(/[<>"'`]/g, "");
 
 const ContactsSection = () => {
+  const t = useLang().contacts;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [agreed, setAgreed] = useState(false);
@@ -29,10 +31,10 @@ const ContactsSection = () => {
   const validate = () => {
     const errs: { name?: string; phone?: string } = {};
     if (!NAME_RE.test(name.trim())) {
-      errs.name = "Введите имя и фамилию (только буквы, от 2 до 60 символов)";
+      errs.name = t.nameError;
     }
     if (!PHONE_RE.test(phone.trim())) {
-      errs.phone = "Введите корректный номер телефона (от 5 до 20 цифр)";
+      errs.phone = t.phoneError;
     }
     return errs;
   };
@@ -63,30 +65,17 @@ const ContactsSection = () => {
   return (
     <section className="py-16 px-6" id="contacts">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-black uppercase text-primary italic">КОНТАКТЫ</h2>
+        <h2 className="text-3xl md:text-4xl font-black uppercase text-primary italic">{t.title}</h2>
 
         {/* Form */}
         <div className="mt-10 bg-cta-bg rounded-2xl p-8 md:p-12">
-          <h3 className="text-xl font-bold text-foreground">Остались вопросы?</h3>
-          <p className="text-muted-foreground text-sm mt-2">
-            Напишите нам и мы свяжемся с вами в ближайшее время, чтобы ответить по всем интересующим моментам.
-          </p>
+          <h3 className="text-xl font-bold text-foreground">{t.formTitle}</h3>
+          <p className="text-muted-foreground text-sm mt-2">{t.formSubtitle}</p>
           <div className="mt-6 space-y-4 max-w-lg">
-            {/* <div>
-              <input
-                type="text"
-                placeholder="Вопрос/предложение/уточнение"
-                value={question}
-                onChange={(e) => handleNameChange(e.target.value)}
-                maxLength={60}
-                className={`w-full px-4 py-3 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring ${errors.question ? "border-destructive" : "border-border"}`}
-              />
-              {errors.question && <p className="text-xs text-destructive mt-1">{errors.question}</p>}
-            </div> */}
             <div>
               <input
                 type="text"
-                placeholder="Имя и фамилия"
+                placeholder={t.namePlaceholder}
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
                 maxLength={60}
@@ -97,7 +86,7 @@ const ContactsSection = () => {
             <div>
               <input
                 type="tel"
-                placeholder="Ваш номер телефона"
+                placeholder={t.phonePlaceholder}
                 value={phone}
                 onChange={(e) => handlePhoneChange(e.target.value)}
                 maxLength={20}
@@ -107,20 +96,20 @@ const ContactsSection = () => {
             </div>
             <label className="flex items-start gap-2 text-xs text-muted-foreground">
               <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 shrink-0" />
-              <span>Согласен(а) на обработку персональных данных в соответствии с <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer" className="underline text-primary hover:opacity-80">Политикой конфиденциальности</a></span>
+              <span>{t.privacyText} <a href={t.privacyUrl} target="_blank" rel="noopener noreferrer" className="underline text-primary hover:opacity-80">{t.privacyLink}</a></span>
             </label>
             <button
               onClick={handleSubmit}
               disabled={!agreed || status === "loading"}
               className="bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {status === "loading" ? "Отправка..." : "Отправить"}
+              {status === "loading" ? t.submitting : t.submitButton}
             </button>
             {status === "success" && (
-              <p className="text-sm text-green-600">Заявка отправлена! Мы свяжемся с вами в течение 24 часов.</p>
+              <p className="text-sm text-green-600">{t.successMessage}</p>
             )}
             {status === "error" && (
-              <p className="text-sm text-destructive">Что-то пошло не так. Попробуйте ещё раз или напишите нам напрямую.</p>
+              <p className="text-sm text-destructive">{t.errorMessage}</p>
             )}
           </div>
         </div>
@@ -128,18 +117,18 @@ const ContactsSection = () => {
         {/* Contact cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <div className="bg-accent rounded-xl p-6">
-            <h4 className="text-primary font-bold uppercase text-sm">Позвонить</h4>
-            <p className="text-foreground mt-2">+ 375 (29) 597 85 62 (МТС)</p>
+            <h4 className="text-primary font-bold uppercase text-sm">{t.callLabel}</h4>
+            <p className="text-foreground mt-2">+48 571 843 820</p>
           </div>
           <div className="bg-accent rounded-xl p-6">
-            <h4 className="text-primary font-bold uppercase text-sm">Написать</h4>
+            <h4 className="text-primary font-bold uppercase text-sm">{t.writeLabel}</h4>
             <p className="text-foreground mt-2">marketing@pageli.org</p>
           </div>
         </div>
 
         {/* Social */}
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <span className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Аккаунты для связи:</span>
+          <span className="text-xs font-bold uppercase text-muted-foreground tracking-wider">{t.socialsLabel}</span>
           <div className="flex items-center gap-3">
             <a href="https://www.instagram.com/kukhareva_nat/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors">
               <Instagram className="w-5 h-5 text-foreground" />
